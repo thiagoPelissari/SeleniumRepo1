@@ -1,8 +1,39 @@
 ﻿@page
 @model PrivacyModel
 @{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = "Login Test";
 }
 <h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#btnLog").click(function () {
+            if ($("#Login").val() == "thiago" && $("#Senha").val() == "123") {
+                $("#validationDiv").html("<div id='msgLog' class='alert-success'>Parabéns você está logado!</div>");
+            }
+            else {
+                $("#Login").val("");
+                $("#Senha").val("");
+                $("#validationDiv").html("<div id='msgLog' class='alert-danger'>Usuario ou Senha inválidos</div>");
+            }
+        });
+    });
+</script>
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <input type="text" placeholder="Login" id="Login" name="Login" class="form-control" />
+            <input type="password" placeholder="Senha" name="Senha" id="Senha" class="form-control" />
+        </div>
+        <input type="button" class="btn btn-success" id="btnLog" value="Logar" />
+    </div>
+    <div class="row" id="validationDiv">
+    </div>
+    
+</div>

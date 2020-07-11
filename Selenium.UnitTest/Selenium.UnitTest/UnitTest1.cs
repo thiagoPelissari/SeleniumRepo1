@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
@@ -131,6 +132,41 @@ namespace SeleniumTests
 
             Assert.IsNotNull(driver.FindElement(By.XPath("//pre[contains(text(),'Erro')]")));
         }
+
+
+        [TestMethod]
+        public void Invasao_LoginTest()
+        {
+            Logger.LogMessage("entrou no Teste: Descobrindo a senha");
+            bool descobriuSenha = false;
+            int senha = 90;
+            driver.Navigate().GoToUrl("http://localhost:57959/Privacy");
+           
+
+            while (!descobriuSenha)
+            {
+                driver.FindElement(By.Id("Login")).Click();
+                driver.FindElement(By.Id("Login")).Clear();
+                driver.FindElement(By.Id("Login")).SendKeys("thiago");
+                driver.FindElement(By.Id("Senha")).Click();
+                driver.FindElement(By.Id("Senha")).Clear();
+                driver.FindElement(By.Id("Senha")).SendKeys(senha.ToString());
+                driver.FindElement(By.Id("btnLog")).Click();
+
+                descobriuSenha = driver.FindElement(By.Id("msgLog")).Text.Contains("Parabéns");
+
+                if (!descobriuSenha)
+                    senha++;
+            }
+
+            Logger.LogMessage($"A senha é {senha}");
+
+            Assert.IsTrue(descobriuSenha);
+
+
+        }
+
+
         private bool IsElementPresent(By by)
         {
             try
